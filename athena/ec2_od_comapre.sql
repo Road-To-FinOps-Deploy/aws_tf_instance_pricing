@@ -8,16 +8,16 @@ SELECT
          odrate, pricing_public_on_demand_rate,
          sum(cast(odrate AS decimal(10,
         5))*line_item_usage_amount) as calc_charge
-FROM "$cur.database"."$cur.table" AS kpmg
+FROM "$cur.database"."$cur.table" AS cur
 LEFT JOIN "pricingdev"."pricing"
-    ON kpmg.product_location=pricing.region
-        AND kpmg.product_operating_system=pricing.os2
-        AND kpmg.product_instance_type=pricing.instancetype
-        AND kpmg.product_tenancy=pricing.tenancy
-        AND kpmg.product_pre_installed_sw=pricing.PreInstalledSW
-        and kpmg.product_capacitystatus=pricing.CapacityStatus
-        and kpmg.product_usagetype=pricing.usageType
-        and kpmg.pricing_public_on_demand_rate=pricing.odrate
+    ON cur.product_location=pricing.region
+        AND cur.product_operating_system=pricing.os2
+        AND cur.product_instance_type=pricing.instancetype
+        AND cur.product_tenancy=pricing.tenancy
+        AND cur.product_pre_installed_sw=pricing.PreInstalledSW
+        and cur.product_capacitystatus=pricing.CapacityStatus
+        and cur.product_usagetype=pricing.usageType
+        and cur.pricing_public_on_demand_rate=pricing.odrate
 WHERE month = '5'
         AND year = '2020'
         AND line_item_product_code = 'AmazonEC2'
@@ -69,7 +69,7 @@ SELECT
          5))*line_item_usage_amount) AS old_charge,
          sum(cast(New_Rate AS decimal(10,
          5))*line_item_usage_amount) AS new_charge
-FROM "$cur.database"."$cur.table" AS kpmg
+FROM "$cur.database"."$cur.table" AS cur
 LEFT JOIN 
     (SELECT f.InstanceType,
          f.family,
@@ -101,13 +101,13 @@ LEFT JOIN
                 AND P.CapacityStatus= f.CapacityStatus
                 AND P.PreInstalledSW= f.PreInstalledSW
                 AND P.operation=f.operation ) AS Rate_card
-        ON kpmg.product_location=Rate_card.region
-        AND kpmg.product_operating_system=Rate_card.os2
-        AND kpmg.product_instance_type=Rate_card.instancetype
-        AND kpmg.product_tenancy=Rate_card.tenancy
-        AND kpmg.product_pre_installed_sw=Rate_card.PreInstalledSW
-        and kpmg.product_capacitystatus=Rate_card.CapacityStatus
-        and kpmg.product_operation=Rate_card.Operation
+        ON cur.product_location=Rate_card.region
+        AND cur.product_operating_system=Rate_card.os2
+        AND cur.product_instance_type=Rate_card.instancetype
+        AND cur.product_tenancy=Rate_card.tenancy
+        AND cur.product_pre_installed_sw=Rate_card.PreInstalledSW
+        and cur.product_capacitystatus=Rate_card.CapacityStatus
+        and cur.product_operation=Rate_card.Operation
  WHERE if((date_format(current_timestamp , '%M') = 'January'), month = '12', month = CAST((month(now())-1) AS VARCHAR) )
             AND if((date_format(current_timestamp , '%M') = 'January'), year = CAST((year(now())-1) AS VARCHAR) ,year = CAST(year(now()) AS VARCHAR))        AND line_item_product_code = 'AmazonEC2'
         and product_instance_type_family <> ''
