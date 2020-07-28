@@ -52,8 +52,8 @@ SELECT accounts.project,
          5))*line_item_usage_amount) AS old_charge,
          sum(cast(New_Rate AS decimal(10,
          5))*line_item_usage_amount) AS new_charge
-FROM "kpmgcostanalysisathenadatabase"."k_p_m_g_billing_athena_with_i_d" AS kpmg
-LEFT JOIN "kpmgcostanalysisathenadatabase"."accounts"
+FROM "Database_value"."cur" AS kpmg
+LEFT JOIN "Database_value"."accounts"
     ON kpmg.line_item_usage_account_id = accounts."account id"
 LEFT JOIN 
     (SELECT f.InstanceType,
