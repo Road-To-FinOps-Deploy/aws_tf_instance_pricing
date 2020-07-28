@@ -19,11 +19,6 @@ Note:you must approve the address for sender before it can send emails
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | rds\_stop\_instance\_cron| Rate expression for when to run the review of rds| string | `"cron(0 23 ? * FRI *)"` | no 
-| rds\_terminate\_instance\_cron| Rate expression for when to run the terinate of rds| string | `"cron(0 23 ? * FRI *)"` | no 
-| function\_prefix | Prefix for the name of the lambda created | string | `""` | no |
-| region | region this will be deployed too | string | `""` | no | 
-| reciver_email | What emails will be notified if there are rds with no connection | string | `""` | no | 
-| sender_email | An email address that this lambda can send emails from | string | `""` | yes | 
 
 
 

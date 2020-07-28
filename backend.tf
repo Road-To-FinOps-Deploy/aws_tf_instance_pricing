@@ -1,18 +1,15 @@
 terraform {
   backend "s3" {
-    bucket   = "cloudops-newsandbox.tfstate-bucket"
-    key      = "rds_sched_git/terraform.tfstate"
-    region   = "eu-west-1"
-    role_arn = "arn:aws:iam::324382802360:role/SSOAdmin"
-    encrypt  = "true"
+    bucket  = "penny-bucket-577906137810"
+    key     = "upgrade/terraform.tfstate"
+    region  = "eu-west-1"
+    encrypt = "true"
+    profile = "penny"
   }
 }
 
 
 provider "aws" {
-  region = "eu-west-1"
-
-  assume_role {
-    role_arn = "arn:aws:iam::324382802360:role/SSOAdmin"
-  }
+  region  = "eu-west-1"
+  profile = "penny"
 }
