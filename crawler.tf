@@ -4,7 +4,6 @@ resource "aws_glue_crawler" "OD_Pricing" {
   database_name = "pricing${var.env}"
   name          = "od_pricing${var.env}"
   role          = aws_iam_role.iam_role_for_pricing.arn
-  #schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
     path = "s3://${var.output_bucket}${var.env}/Pricing/od_pricedata"
@@ -20,7 +19,6 @@ resource "aws_glue_crawler" "SP_Pricing" {
   database_name = "pricing${var.env}"
   name          = "sp_pricing${var.env}"
   role          = aws_iam_role.iam_role_for_pricing.arn
-  schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
     path = "s3://${var.output_bucket}${var.env}/Pricing/sp_pricedata"

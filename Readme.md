@@ -18,7 +18,8 @@ Note:you must approve the address for sender before it can send emails
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| rds\_stop\_instance\_cron| Rate expression for when to run the review of rds| string | `"cron(0 23 ? * FRI *)"` | no 
+| pricing\_cron| Rate expression for when to run the review of rds| string | `"cron(0 6 ? * MON *)"` | no 
+| output_bucket| Rate expression for when to run the review of rds| string | `"cron(0 6 ? * MON *)"` | no 
 
 
 
