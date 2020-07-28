@@ -52,9 +52,9 @@ SELECT accounts.project,
          5))*line_item_usage_amount) AS old_charge,
          sum(cast(New_Rate AS decimal(10,
          5))*line_item_usage_amount) AS new_charge
-FROM "Database_value"."cur" AS kpmg
+FROM "Database_value"."cur" AS cur
 LEFT JOIN "Database_value"."accounts"
-    ON kpmg.line_item_usage_account_id = accounts."account id"
+    ON cur.line_item_usage_account_id = accounts."account id"
 LEFT JOIN 
     (SELECT f.InstanceType,
          f.family,
@@ -89,12 +89,12 @@ LEFT JOIN
                 AND P."database edition"= f."database edition"
 
                 ) AS Rate_card
-        ON kpmg.product_location=Rate_card.region
-        AND kpmg.product_database_engine=Rate_card."Database Engine"
-        AND kpmg.product_instance_type=Rate_card.instancetype
-        AND kpmg.product_deployment_option=Rate_card."deployment option"
-        AND kpmg.product_database_edition=Rate_card."database edition"
-        and kpmg.product_license_model=Rate_card."license model"
+        ON cur.product_location=Rate_card.region
+        AND cur.product_database_engine=Rate_card."Database Engine"
+        AND cur.product_instance_type=Rate_card.instancetype
+        AND cur.product_deployment_option=Rate_card."deployment option"
+        AND cur.product_database_edition=Rate_card."database edition"
+        and cur.product_license_model=Rate_card."license model"
         
  WHERE if((date_format(current_timestamp , '%M') = 'January'), month = '12', month = CAST((month(now())-1) AS VARCHAR) )
             AND if((date_format(current_timestamp , '%M') = 'January'), year = CAST((year(now())-1) AS VARCHAR) ,year = CAST(year(now()) AS VARCHAR)) AND line_item_product_code = 'AmazonRDS'
