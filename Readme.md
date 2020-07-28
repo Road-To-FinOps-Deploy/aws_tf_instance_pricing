@@ -1,25 +1,29 @@
-# Lambda RDS Unattached cleanup
+# Lambda Instance Pricing
 ```
-The script schedules the review of any RDS that have been unattached, stop them then delete them.
-This checks all regions
+The lamdab is to pull Pricing data for EC2 on demand and SP plus RDS On Demand.
+This comes from the wellarchitectedlabs - 200_pricing_model_analysis but just as a terraformed version.
 ```
 
 ## Usage
 
-
-module "aws_bas_lambda_scheduler" {
+```
+module "aws_tf_ec2_upgrade_reccomendation" {
   source = "/aws_tf_rds_delete_unattached"
-  sender_email = "example@hotmail.com"
+  output_bucket = "mys3bucketname"
 }
+```
 
-Note:you must approve the address for sender before it can send emails
+Once deployed you can use the athena to setup view from the crawlers to get the data in a nicer format.
+NOTE!!  You must follow step 31 of this guide https://wellarchitectedlabs.com/cost/200_labs/200_pricing_model_analysis/1_pricing_sources/ to ensure the table is correct
+
 
 ## Optional Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| output_bucket| Bucket name for the data to be loaded to| string | `""` | yes
 | pricing\_cron| Rate expression for when to run the review of rds| string | `"cron(0 6 ? * MON *)"` | no 
-| output_bucket| Rate expression for when to run the review of rds| string | `"cron(0 6 ? * MON *)"` | no 
+| env| Name of envirment| string | `""` | no
 
 
 
